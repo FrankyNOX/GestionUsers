@@ -8,6 +8,9 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\Request;
+
 
 class RegisterController extends Controller
 {
@@ -69,5 +72,30 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+        event(new Registered($user = $this->create($request->all())));
+        $this->guard()->login($user);
+        if($request->ajax()){
+            // If request from AJAX
+            return [
+                'success' => true,
+                'redirect' => $this->redirectPath() ?: route('home'),
+            ];
+        } else {
+            // Normal POST do redirect
+            return $this->registered($request, $user)
+                ?: redirect($this->redirectPath());
+        }
+
     }
 }

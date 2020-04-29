@@ -75,7 +75,7 @@ class RegisterController extends Controller
     }
 
     /**
-     * Handle a registration request for the application.
+     * Gérer une demande d'enregistrement pour l'application.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response

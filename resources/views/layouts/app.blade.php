@@ -13,47 +13,47 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     <script type="text/javascript">
-        // Set default CSRF header
+        // Définir l'en-tête CSRF par défaut
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        // Intercept login form
+        // Interception du Formulaire de connexion
         $('#login-form').submit(function(e){
 
-            // Prevent normal form submission, we well do in JS instead
+            // Empêcher la soumission de formulaire normale, nous le faisons bien en JS à la place
             e.preventDefault();
-            // Get form data
+            // Obtenir les données du formulaire
             var data = {
                 email: $('[name=email]').val(),
                 password: $('[name=password]').val(),
                 remember: $('[name=remember]').val(),
             };
-            // Send the request
+            // Envoyer la demande
             $.post($('this').attr('action'), data, function(response) {
                 if (response.success) {
-                    // If login success, redirect
+                    // Si la connexion réussit, redirection
                     window.location.replace(response.redirect);
                 }
             });
         });
-        // Intercept register form
+        // Formulaire d'enregistrement d'interception
         $('#register-form').submit(function(e){
 
-            // Prevent normal form submission, we well do in JS instead
+            // Empêcher la soumission de formulaire normale, nous faisons bien dans JS à la place
             e.preventDefault();
-            // Get form data
+            // Obtenir les données du formulaire
             var data = {
                 name: $('[name=name]').val(),
                 email: $('[name=email]').val(),
                 password: $('[name=password]').val(),
                 password_confirmation: $('[name=password_confirmation]').val(),
             };
-            // Send the request
+            // Envoyer la demande
             $.post($('this').attr('action'), data, function(response) {
                 if (response.success) {
-                    // If register success, redirect
+                    // Si l'enregistrement réussit, redirigez
                     window.location.replace(response.redirect);
                 }
             });

@@ -89,11 +89,21 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('login') }}</a>
                             </li>
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('register') }}</a>
+                                </li>
+                            @endif
+
+                            @if (session('locale') == 'fr')
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('langue') }}">Switch to English</a>
+                                </li>
+                            @elseif(session('locale') == 'en')
+                                <li class="nav-item">
+                                <a class="nav-link" href="{{ route('langue') }}">Passer en Français</a>
                                 </li>
                             @endif
                         @else

@@ -29,4 +29,4 @@ Route::get('/home', 'HomeController@index')->name('home');
     Route::resource('users', 'UsersController')->middleware('Role:Superadmin|Admin');
     Route::get('profileedit/{id}', 'ProfileController@edit');
     Route::put('profileupdate/{id}', 'ProfileController@update');
-    Route::get('language', 'UsersController@language');
+    Route::get('language', 'UsersController@language')->name('langue');

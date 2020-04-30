@@ -68,13 +68,20 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/home') }}">Home</a>
+                        <a href="{{ url('/home') }}">{{trans('home')}}</a>
                     @else
-                        <a href="{{ route('login') }}">Login</a>
+                        <a href="{{ route('login') }}">{{trans('login')}}</a>
 
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
+                            <a href="{{ route('register') }}">{{trans('register')}}</a>
                         @endif
+
+                        @if (session('locale') == 'fr')
+                            <a href="{{ route('langue') }}">Switch to English</a>
+                            @elseif(session('locale') == 'en')
+                            <a href="{{ route('langue') }}">Passer en Français</a>
+                            @endif
+
                     @endauth
                 </div>
             @endif

@@ -15,5 +15,9 @@ return [
 
     'failed' => 'These credentials do not match our records.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'Verify Email Address' =>  'Vérifier l\'adresse E-mail',
+    'Please click the button below to verify your email address.' => 'Veuillez cliquer sur le bouton ci-dessous pour vérifier votre adresse E-mail.' ,
+    'If you did not create an account, no further action is required.' => 'Si vous n\'avez pas créé de compte, aucune autre action n\'est requise.',
+
 
 ];

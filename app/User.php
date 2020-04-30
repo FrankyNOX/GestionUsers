@@ -2,11 +2,12 @@
 
 namespace App;
 
+use App\Notifications\MyNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
 
@@ -37,14 +38,32 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+
     /*
-   |------------------------------------------------------------------------------------
-   | Validations
-   |------------------------------------------------------------------------------------
-   */
+    |------------------------------------------------------------------------------------
+    | Validations
+    |------------------------------------------------------------------------------------
+    */
+    public static function rules($update = false, $id = null)
+    {
+        $commun = [
+            'name' => 'required|min:2',
+            'email'    => "required|email|unique:users,email,$id",
+            'password' => 'nullable|confirmed',
+        ];
+
+        if ($update) {
+            return $commun;
+        }
+
+        return array_merge($commun, [
+            'email'    => 'required|email|max:255|unique:users',
+            'password' => 'required|confirmed|min:6',
+        ]);
+    }
 
     /**
-     * Avoir le role de l'utilisateur connecté
+     * Get user role name
      *
      * $return string
      */
@@ -54,13 +73,55 @@ class User extends Authenticatable
     }
 
     /**
-     * Découvrer si l'utilisateur a un rôle spécifique
+     * Find out if user has a specific role
      *
      * $return boolean
      */
     public function hasRole($roles)
     {
         return in_array($this->rolename(), explode("|", $roles));
+    }
+
+    /*
+    |------------------------------------------------------------------------------------
+    | Attributes
+    |------------------------------------------------------------------------------------
+    */
+    public function setPasswordAttribute($value='')
+    {
+        $this->attributes['password'] = bcrypt($value);
+    }
+
+    public function getAvatarAttribute($value)
+    {
+        if (!$value) {
+
+            return url('/') . config('variables.avatar.public') . 'avatar0.png';
+        }
+
+        return url('/') . config('variables.avatar.public') . $value;
+    }
+    public function setAvatarAttribute($photo)
+    {
+        $this->attributes['avatar'] = move_file($photo, 'avatar.image');
+    }
+
+    /*
+    |------------------------------------------------------------------------------------
+    | Boot
+    |------------------------------------------------------------------------------------
+    */
+    public static function boot()
+    {
+        parent::boot();
+        static::updating(function($user)
+        {
+            $original = $user->getOriginal();
+
+            if (\Hash::check('', $user->password)) {
+                $user->attributes['password'] = $original['password'];
+            }
+        });
     }
 
 }

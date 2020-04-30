@@ -171,15 +171,15 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>Name</th>
+                      <th>Nom</th>
                       <th>Email</th>
                       <th>Role</th>
-                      <th>Actif</th>
+                      <th>Compte Actif</th>
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
-                       <th>Name</th>
+                       <th>Nom</th>
                         <th>Email</th>
                         <th>Role</th>
                         <th>Compte Actif</th>
@@ -190,8 +190,14 @@
                     <tr>
                       <td>{{$user->name}}</td>
                       <td>{{$user->email}}</td>
-                      <td>{{$user->role}}</td>
-                      <td>{{$user->active}}</td>
+                      <td>{{ Helper::getRolename($user->role) }}</td>
+                      <td>
+                          @if($user->active == 1)
+                              <i class="fas fa-check-square text-success"></i>
+                          @else
+                              <i class="fas fa-times-circle text-danger"></i>
+                          @endif
+                      </td>
                     </tr>
                     @endforeach
                   </tbody>

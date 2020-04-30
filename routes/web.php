@@ -18,3 +18,14 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+/*
+|------------------------------------------------------------------------------------
+| Admin
+|------------------------------------------------------------------------------------
+*/
+    Route::get('dashboard','HomeController@index')->name('dashbord');
+    Route::resource('users', 'UsersController')->middleware('Role:Superadmin|Admin');
+    Route::get('profileedit/{id}', 'ProfileController@edit');
+    Route::put('profileupdate/{id}', 'ProfileController@update');

@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->integer('active')->default(0);
             $table->string('avatar')->nullable();
             $table->rememberToken();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

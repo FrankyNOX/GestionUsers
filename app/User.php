@@ -2,16 +2,20 @@
 
 namespace App;
 
-use App\Notifications\MyNotification;
 use App\Presenters\DatePresenter;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
     use DatePresenter;
+    use SoftDeletes;
+
+    protected $dates = ['deleted_at'];
 
     /**
      * The attributes that are mass assignable.
@@ -75,7 +79,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Find out if user has a specific role
+     * Découvrez si l'utilisateur a un rôle spécifique
      *
      * $return boolean
      */
@@ -91,7 +95,7 @@ class User extends Authenticatable implements MustVerifyEmail
     */
     public function setPasswordAttribute($value='')
     {
-        $this->attributes['password'] = bcrypt($value);
+        $this->attributes['password'] = Hash::make($value);
     }
 
     public function getAvatarAttribute($value)
@@ -105,11 +109,11 @@ class User extends Authenticatable implements MustVerifyEmail
     }
     public function setAvatarAttribute($photo)
     {
-        $this->attributes['avatar'] = move_file($photo, 'avatar.image');
+        $this->attributes['avatar'] = (new Http\move)->move_file($photo, 'avatar.image');
     }
 
     /*
-    |------------------------------------------------------------------------------------
+    |
     | Boot
     |------------------------------------------------------------------------------------
     */

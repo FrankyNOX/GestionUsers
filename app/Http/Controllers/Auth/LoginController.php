@@ -100,7 +100,7 @@ class LoginController extends Controller
             //  L'utilisateur existe mais son compte est innactif
             return redirect("/login")
                 ->withInput($request->only('email', 'remember'))
-                ->withWarning('Votre compte est innactif ou non vérifie');
+                ->withWarning('Votre compte a ete desactivé');
         }
 
         //Essaie de se connecter avec le mot de passe

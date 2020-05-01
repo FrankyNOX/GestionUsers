@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 
 class UsersController extends Controller
 {
@@ -20,16 +21,6 @@ class UsersController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -37,7 +28,10 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         $this->validate($request, User::rules());
+         $user = User::create($request->all());
+         return $user;
+
     }
 
     /**
@@ -48,7 +42,7 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        $user = User::all();
+        $user = User::findOrFail($id);
         return $user;
     }
 
@@ -60,7 +54,8 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::findOrFail($id);
+        return $user;
     }
 
     /**
@@ -72,7 +67,9 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->update($request->all());
+        return $user;
     }
 
     /**
@@ -83,6 +80,7 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::destroy($id);
+        return ['Success'];
     }
 }

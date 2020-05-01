@@ -215,7 +215,9 @@
                                         <form method="post" action="{{route('users.destroy',$user->id)}}">
                                             @csrf
                                             @method('DELETE')
+                                            @if ( $user->hasRole('Admin|Opérateur|Lecteur') )
                                             <button class="btn btn-danger btn-xs" title="Supprimer utilisateur"><i class="fa fa-trash"></i></button>
+                                             @endif
                                         </form>
                                     <a href="{{ route( 'users.show',$user->id)  }}" title="Voir utilisateur" class="btn btn-success btn-xs"><i class="fas fa-user-alt"></i></a></li>
                             </div>

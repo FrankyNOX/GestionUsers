@@ -41,11 +41,10 @@ class UserConnect extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject('Ntification de connection')
+            ->subject('Notification de connection')
             ->from(Auth::user()->email,Auth::user()->name )
             ->greeting("Bonjour!,c'est "." ".Auth::user()->name)
-            ->line('Je me suis connecter')
-            ->line('Best regards!');
+            ->line('Je me suis connecter');
     }
 
     /**

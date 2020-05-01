@@ -3,7 +3,7 @@
     Voir un utilisateur
 @stop
 @section('page_titre')
-    Tabeau de bord
+    Profil
 @stop
 @section('container')
     <!-- Content Row -->
@@ -48,7 +48,7 @@
 
                         <input type="hidden" name="_method" value="PUT">
 
-                        <h6 class="heading-small text-muted mb-4">Informations de l'utilisateurs</h6>
+                        <h6 class="heading-small text-muted mb-4">Informations de l'utilisateur</h6>
 
                         <div class="pl-lg-4">
                             <div class="row">

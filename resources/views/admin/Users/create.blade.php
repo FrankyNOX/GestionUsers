@@ -16,16 +16,12 @@
             <div class="card shadow mb-4">
 
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">My Account</h6>
                 </div>
 
                 <div class="card-body">
 
                     <form method="post" enctype="multipart/form-data" action="{{route('users.store')}}" autocomplete="off">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-
-
-                        <h6 class="heading-small text-muted mb-4">User information</h6>
 
                         <div class="pl-lg-4">
                             <div class="row">
@@ -37,7 +33,7 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label class="form-control-label" for="email">Adress Email<span class="small text-danger">*</span></label>
+                                        <label class="form-control-label" for="email">Adresse Email<span class="small text-danger">*</span></label>
                                         <input type="email" id="email" class="form-control" name="email" placeholder="example@example.com">
                                     </div>
                                 </div>

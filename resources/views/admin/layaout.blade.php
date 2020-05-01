@@ -33,7 +33,7 @@
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
-            <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+            <div class="sidebar-brand-text mx-3">NOX Admin</div>
         </a>
 
         <!-- Divider -->
@@ -52,6 +52,8 @@
                 <i class="fas fa-fw fa-user-alt"></i>
                 <span>Profil</span></a>
         </li>
+
+        @if(Auth::user()->rolename() == "Superadmin" || Auth::user()->rolename() == "Admin")
         <!-- Heading -->
         <div class="sidebar-heading">
             ADMINS
@@ -63,6 +65,7 @@
                 <i class="fas fa-fw fa-users-cog"></i>
                 <span>Utilisateurs</span></a>
         </li>
+        @endif
 
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
@@ -87,41 +90,8 @@
                 <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                     <i class="fa fa-bars"></i>
                 </button>
-
-                <!-- Topbar Search -->
-                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                    <div class="input-group">
-                        <input type="text" class="form-control bg-light border-0 small" placeholder="Rechercher..." aria-label="Search" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" type="button">
-                                <i class="fas fa-search fa-sm"></i>
-                            </button>
-                        </div>
-                    </div>
-                </form>
-
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
-
-                    <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                    <li class="nav-item dropdown no-arrow d-sm-none">
-                        <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-search fa-fw"></i>
-                        </a>
-                        <!-- Dropdown - Messages -->
-                        <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
-                            <form class="form-inline mr-auto w-100 navbar-search">
-                                <div class="input-group">
-                                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-primary" type="button">
-                                            <i class="fas fa-search fa-sm"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </li>
 
 
                     <div class="topbar-divider d-none d-sm-block"></div>
@@ -134,14 +104,14 @@
                         </a>
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="{{route('users.show',Auth::user()->id)}}">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Profile
                             </a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Logout
+                                Déconnexion
                             </a>
                         </div>
                     </li>
@@ -183,7 +153,7 @@
         <footer class="sticky-footer bg-white">
             <div class="container my-auto">
                 <div class="copyright text-center my-auto">
-                    <span>Copyright &copy; Your Website 2019</span>
+                    <span>Copyright &copy; FrankyNOX 2020</span>
                 </div>
             </div>
         </footer>
@@ -205,24 +175,23 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <h5 class="modal-title" id="exampleModalLabel"> Pret a partir ? </h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-body"> Sélectionnez «Déconnexion» ci-dessous si vous êtes prêt à terminer votre session en cours.</div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="login.html">Logout</a>
-                <a class="dropdown-item" href="{{ route('logout') }}"
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler</button>
+                <a class="btn btn-danger" href="{{ route('logout') }}"
                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                    {{ __('Logout') }}
+                    {{ __('Déconnexion') }}
                 </a>
-
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     @csrf
                 </form>
+
             </div>
         </div>
     </div>

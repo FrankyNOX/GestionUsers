@@ -25,7 +25,9 @@
                         <th>Email</th>
                         <th>Role</th>
                         <th>Compte Actif</th>
-                        <th class="actions"></th>
+                        @if(Auth::user()->rolename() == "Superadmin")
+                            <th class="actions"></th>
+                        @endif
                     </tr>
                     </thead>
                     <tfoot>
@@ -34,7 +36,9 @@
                         <th>Email</th>
                         <th>Role</th>
                         <th>Compte Actif</th>
+                        @if(Auth::user()->rolename() == "Superadmin")
                         <th class="actions"></th>
+                        @endif
                     </tr>
                     </tfoot>
                     <tbody>
@@ -43,6 +47,7 @@
                             <td>{{$user->name}}</td>
                             <td>{{$user->email}}</td>
                             <td>{{ Helper::getRolename($user->role) }}</td>
+
                             <td>
                                 @if($user->active == 1)
                                     <i class="fas fa-check-square text-success"></i>
@@ -50,6 +55,7 @@
                                     <i class="fas fa-times-circle text-danger"></i>
                                 @endif
                             </td>
+                            @if(Auth::user()->rolename() == "Superadmin")
                             <td class="actions">
 
                                 <div class='btn-group'>
@@ -63,8 +69,7 @@
                                     </form>
                                     <a href="{{ route( 'users.show',$user->id)  }}" title="Voir utilisateur" class="btn btn-success btn-xs"><i class="fas fa-user-alt"></i></a></li>
                                 </div>
-
-
+                            @endif
                             </td>
                         </tr>
                     @endforeach

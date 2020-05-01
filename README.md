@@ -8,4 +8,4 @@ Pour installer veuiller suivre la procedure
 4. Taper npm run dev
 5. Taper phph artisan key:generate
 6. Taper php artisan migrate:fresh --seed
-7. Taper php artisan servegit 
+7. Taper php artisan serve

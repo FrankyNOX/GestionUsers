@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
-use App\Http\Controllers\API\UsersController as UserAPI;
 
 class UsersController extends Controller
 {
@@ -15,8 +15,8 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = (new UserAPI)->index();
-        return view('admin.Users.index',compact('users'));
+        $user = User::all();
+        return $user;
     }
 
     /**
@@ -26,7 +26,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('admin.Users.create');
+        //
     }
 
     /**
@@ -37,9 +37,7 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, User::rules());
-        User::create($request->all());
-        return redirect()->route('users.index')->withSuccess('Utilisateur crée');
+        //
     }
 
     /**
@@ -50,8 +48,8 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        $user = User::findOrFail($id);
-        return view('admin.Users.show',compact('user'));
+        $user = User::all();
+        return $user;
     }
 
     /**
@@ -62,8 +60,7 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        $user = User::findOrFail($id);
-        return view('admin.Users.edit',compact('user'));
+        //
     }
 
     /**
@@ -75,9 +72,7 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $item = User::findOrFail($id);
-        $item->update($request->all());
-        return redirect()->route('users.index')->withSuccess('Modification Effectuée');
+        //
     }
 
     /**
@@ -88,15 +83,6 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        User::destroy($id);
-        return back()->withSuccess(trans('Utilisateurs suprimé avec success'));
+        //
     }
-    public function language()
-    {
-        session()->put('locale', session('locale') == 'fr' ? 'en' : 'fr');
-
-        return redirect()->back();
-    }
-
-
 }
